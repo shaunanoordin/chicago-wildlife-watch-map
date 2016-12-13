@@ -1,0 +1,55 @@
+.map
+  overflow: hidden
+  
+  .map-visuals
+    margin: 0 auto
+    width: 800px
+    height: 500px
+    max-width: 100%
+
+  .map-explanation
+    margin: 1em auto
+    width: 800px
+    max-width: 100%
+    padding: 1em
+    background: light-blue
+    color: blue
+
+    code
+      display: block
+      margin: 0 1em
+      color: copper
+      white-space: pre
+      overflow: auto
+      font-size: 0.8em
+
+    .comments
+      color: pink
+  
+  .map-controls
+    margin: 0 auto
+    width: 800px
+    max-width: 100%
+    background: blue
+    color: white
+    padding: 1em
+    display: flex
+    flex-direction: row
+    
+    label
+      cursor: pointer
+      flex: 0 0 auto
+      padding: 0.5em
+      width: 25%
+      display: block
+
+.fix-map-height
+  > div
+    height: 100%
+
+.leaflet-clickable
+  cursor: pointer
+
+.leaflet-control.btn
+    line-height: 2em
+    cursor: pointer

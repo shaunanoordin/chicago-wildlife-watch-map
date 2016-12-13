@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import packageJSON from '../../package.json';
-
-import HeaderAuth from './HeaderAuth';
+import Map from './Map.jsx';
 
 export default class App extends React.Component {
   returnSomething(something) {
@@ -10,18 +8,14 @@ export default class App extends React.Component {
     return something;
   }
   render() {
-    const version = packageJSON.version;
 
     return (
       <div>
         <header className="site-header">
-          <h1 className="title">React Starterify {version}</h1>
-          <Link to="/about" className="link">About</Link>
-          <Link to="/poweredby" className="link">Powered by</Link>
-          <HeaderAuth />
+          <h1 className="title">Chicago Wildlife Watch Map Explorer</h1>
         </header>
         <section className="content-section">
-          {this.props.children || 'Welcome to React Starterify'}
+          <Map />
         </section>
       </div>
     );
