@@ -5,6 +5,12 @@ const gorongosaGeoJSON = require('./gorongosa.json');
 const vegetationGeoJSON = require('./vegetation.json');
 import CameraDatabase from './camera-database.js';
 
+//const data = require('../data/cww-species.csv');
+//const dataFilepath = require('../data/sample.csv');
+//import * as Papa from 'papaparse';
+import {taffy} from 'taffydb';
+const dataJson = require('../data/cww-species.json');
+
 const IS_IE = 'ActiveXObject' in window;  //IE11 detection
 
 export default class Map extends React.Component {
@@ -20,6 +26,10 @@ export default class Map extends React.Component {
   
   componentDidMount() {
     console.log('componentDidMount(): creating map.');
+    console.log('-'.repeat(80));
+    const xyz = taffy(dataJson);
+    console.log(xyz({ "species": "BRD" }).first());
+    
     
     //Base Layers
     const topographyLayer = L.tileLayer(
