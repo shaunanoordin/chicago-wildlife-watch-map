@@ -28,7 +28,8 @@ export default class Map extends React.Component {
     console.log('componentDidMount(): creating map.');
     console.log('-'.repeat(80));
     const xyz = taffy(dataJson);
-    console.log(xyz({ "species": "BRD" }).first());
+    console.log('First Bird:\n', xyz({ 'species': 'BRD' }).first());
+    console.log('Species:\n', xyz().distinct('species'));
     
     
     //Base Layers
