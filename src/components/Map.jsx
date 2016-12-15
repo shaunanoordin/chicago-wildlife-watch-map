@@ -4,12 +4,13 @@ import L from 'leaflet';
 const gorongosaGeoJSON = require('./gorongosa.json');
 const vegetationGeoJSON = require('./vegetation.json');
 import CameraDatabase from './camera-database.js';
+import SpeciesDatabase from './species-database.js';
 
 //const data = require('../data/cww-species.csv');
 //const dataFilepath = require('../data/sample.csv');
 //import * as Papa from 'papaparse';
-import {taffy} from 'taffydb';
-const dataJson = require('../data/cww-species.json');
+//import {taffy} from 'taffydb';
+//const dataJson = require('../data/cww-species.json');
 
 const IS_IE = 'ActiveXObject' in window;  //IE11 detection
 
@@ -27,10 +28,9 @@ export default class Map extends React.Component {
   componentDidMount() {
     console.log('componentDidMount(): creating map.');
     console.log('-'.repeat(80));
-    const xyz = taffy(dataJson);
-    console.log('First Bird:\n', xyz({ 'species': 'BRD' }).first());
-    console.log('Species:\n', xyz().distinct('species'));
-    
+    //const xyz = taffy(dataJson);
+    //console.log('First Bird:\n', xyz({ 'species': 'BRD' }).first());
+    //console.log('Species:\n', xyz().distinct('species'));
     
     //Base Layers
     const topographyLayer = L.tileLayer(
@@ -214,7 +214,8 @@ export default class Map extends React.Component {
     
     //Update the camera layer.
     this.cameraLayer.clearLayers();
-    this.cameraLayer.addData(CameraDatabase.getGeoJSON(camera_limestone, camera_floodplain, camera_miombo, camera_savanna));
+    //this.cameraLayer.addData(CameraDatabase.getGeoJSON(camera_limestone, camera_floodplain, camera_miombo, camera_savanna));
+    this.cameraLayer.addData(SpeciesDatabase.getGeoJSON());
     
     //Update State and make the component re-render.
     this.setState({
