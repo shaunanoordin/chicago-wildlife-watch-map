@@ -44,10 +44,11 @@ export default class Map extends React.Component {
     
     //Leaflet Map
     const myMap = L.map(ReactDOM.findDOMNode(this.refs.mapVisuals), {
-      center: [-18.8, 34.5],
-      zoom: 10,
+      //center: [-18.8, 34.5],
+      center: [41.9, -87.7],
+      zoom: 12,
       layers: [
-        topographyLayer
+        satelliteLayer
       ],
       attributionControl: true,
     });
@@ -116,7 +117,8 @@ export default class Map extends React.Component {
         const marker = L.circleMarker(latlng, {
           color: '#fff',
           weight: 2,
-          fillColor: vegetationColours[feature.properties.veg_type],
+          fillColor: (vegetationColours[feature.properties.veg_type]) ?
+                      vegetationColours[feature.properties.veg_type] : '#c33',
           fillOpacity: 0.8,
           radius: 6,
         });
@@ -138,8 +140,8 @@ export default class Map extends React.Component {
     
     //Layer Controls
     const baseLayers = {
-      'Satellite': satelliteLayer,
       'Topography': topographyLayer,
+      'Satellite': satelliteLayer,
     };
     const dataLayers = {
       'Cameras': cameraLayer,

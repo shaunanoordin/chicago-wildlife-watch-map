@@ -1,53 +1,4 @@
-const data = [
-  {
-    "id": 10,
-    "species": "SQRRLGR",
-    "file_path": "Z:/TransectTrailCamPics/FA14/DPT/D02-HUP1/D02-HUP1-FA14 (1006).JPG",
-    "retired_id": 3744959,
-    "agreement_confidence": 0.714285714285714,
-    "site": "D02-HUP1",
-    "easting": "441984",
-    "northing": "4639557",
-    "dist2centerofcity": "6507.962502",
-    "avg_housing_density_1k_buffer": "476.791682",
-    "avg_imperv_surface_1k_buffer": "28.489348",
-    "season": "FA14",
-    "locations": "{\"0\":\"https://panoptes-uploads.zooniverse.org/production/subject_location/14adb794-2b25-45bb-8f6a-ef79311ea443.jpeg\"}",
-    "date_time": "2014-10-27 13:26:27 -0500"
-  },
-  {
-    "id": 100,
-    "species": "BRD",
-    "file_path": "Z:/TransectTrailCamPics/FA14/DPT/D02-HUP1/D02-HUP1-FA14 (141).JPG",
-    "retired_id": 3745049,
-    "agreement_confidence": 0.571428571428571,
-    "site": "D02-HUP1",
-    "easting": "441984",
-    "northing": "4639557",
-    "dist2centerofcity": "6507.962502",
-    "avg_housing_density_1k_buffer": "476.791682",
-    "avg_imperv_surface_1k_buffer": "28.489348",
-    "season": "FA14",
-    "locations": "{\"0\":\"https://panoptes-uploads.zooniverse.org/production/subject_location/17e44409-5a11-4680-a043-d31960b8047e.jpeg\"}",
-    "date_time": "2014-10-07 12:20:08 -0500"
-  },
-  {
-    "id": 1000,
-    "species": "RBBT",
-    "file_path": "Z:/TransectTrailCamPics/FA14/DPT/D02-HUP1/D02-HUP1-FA14 (952).JPG",
-    "retired_id": 3745949,
-    "agreement_confidence": 1,
-    "site": "D02-HUP1",
-    "easting": "441984",
-    "northing": "4639557",
-    "dist2centerofcity": "6507.962502",
-    "avg_housing_density_1k_buffer": "476.791682",
-    "avg_imperv_surface_1k_buffer": "28.489348",
-    "season": "FA14",
-    "locations": "{\"0\":\"https://panoptes-uploads.zooniverse.org/production/subject_location/60aec252-89ab-482d-84ea-bea7ef09c754.jpeg\"}",
-    "date_time": "2014-10-26 03:56:55 -0500"
-  },
-];
+const data = require('../data/cww-species.json');
 
 export default class SpeciesDatabase {
   static getGeoJSON() {
@@ -61,12 +12,18 @@ export default class SpeciesDatabase {
         })
         .map((item) => {
           const coords = convertUTMtoLatLon(item.northing, item.easting);
+          const lat = (coords.lat && !isNaN(coords.lat)) ? coords.lat : 0;
+          const lon = (coords.lon && !isNaN(coords.lon)) ? coords.lon : 0;
+          
+          if (lat === 0 && lon === 0) {
+            console.log('PROBLEM:', item);
+          }
           
           return {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [coords.lon, coords.lat]  //I thought it was supposed to be lat-lng, but apparently these camera coordinates use lng-lat. Weird.
+              coordinates: [lon, lat]  //I thought it was supposed to be lat-lon, but apparently lon-lat is correct here. Weird.
             },
             properties: {
               id: item.id,
