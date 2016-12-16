@@ -1,37 +1,21 @@
 .map
+  flex: 1 1 auto
   overflow: hidden
+  display: flex
+  flex-direction: column
   
   .map-visuals
     margin: 0 auto
-    width: 800px
-    height: 500px
-    max-width: 100%
+    width: 100%
+    //height: 500px
+    flex: 1 1 auto
 
-  .map-explanation
-    margin: 1em auto
-    width: 800px
-    max-width: 100%
-    padding: 1em
-    background: light-blue
-    color: blue
-
-    code
-      display: block
-      margin: 0 1em
-      color: copper
-      white-space: pre
-      overflow: auto
-      font-size: 0.8em
-
-    .comments
-      color: pink
-  
   .map-controls
+    flex: 0 0 auto
     margin: 0 auto
-    width: 800px
-    max-width: 100%
-    background: blue
-    color: white
+    width: 100%
+    background: $primary-colour
+    color: $secondary-colour
     padding: 1em
     display: flex
     flex-direction: row

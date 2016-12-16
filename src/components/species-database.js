@@ -7,26 +7,41 @@ export default class SpeciesDatabase {
       crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
       features: data
         .filter((item) => {
-          const valid = true;
-          return valid;
+          return true;
         })
-        .map((item) => {
-          const coords = convertUTMtoLatLon(item.northing, item.easting);
-          const lat = (coords.lat && !isNaN(coords.lat)) ? coords.lat : 0;
-          const lon = (coords.lon && !isNaN(coords.lon)) ? coords.lon : 0;
+        .reduce((output, item) => {
+          const matchedItem = output.find((currentItem, index, array) => {
+            return currentItem.site === item.site;
+          });
           
-          if (lat === 0 && lon === 0) {
-            console.log('PROBLEM:', item);
+          if (matchedItem) {
+            matchedItem.count++;
+          } else {
+            const coords = convertUTMtoLatLon(item.northing, item.easting);
+            const lat = (coords.lat && !isNaN(coords.lat)) ? coords.lat : 0;
+            const lon = (coords.lon && !isNaN(coords.lon)) ? coords.lon : 0;
+            if (lat !== 0 && lon !== 0) {
+              output.push({
+                site: item.site,
+                lon: lon,
+                lat: lat,
+                count: 1,
+              });
+            }
           }
           
+          return output;
+        }, [])
+        .map((item) => {
           return {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [lon, lat]  //I thought it was supposed to be lat-lon, but apparently lon-lat is correct here. Weird.
+              coordinates: [item.lon, item.lat]  //I thought it was supposed to be lat-lon, but apparently lon-lat is correct here. Weird.
             },
             properties: {
-              id: item.id,
+              site: item.site,
+              count: item.count,
             }
           }
         })
