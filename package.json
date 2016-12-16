@@ -44,7 +44,8 @@
     
     "leaflet": "0.7.7",
     "react-leaflet": "0.12.1",
-    "react-markdown-to-html": "1.0.11"
+    "react-markdown-to-html": "1.0.11",
+    "taffydb": "2.7.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.0",

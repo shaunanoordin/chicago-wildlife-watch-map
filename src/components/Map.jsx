@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import L from 'leaflet';
-const gorongosaGeoJSON = require('./gorongosa.json');
-const vegetationGeoJSON = require('./vegetation.json');
 import CameraDatabase from './camera-database.js';
+import SpeciesDatabase from './species-database.js';
 
 const IS_IE = 'ActiveXObject' in window;  //IE11 detection
 
@@ -33,89 +32,29 @@ export default class Map extends React.Component {
     
     //Leaflet Map
     const myMap = L.map(ReactDOM.findDOMNode(this.refs.mapVisuals), {
-      center: [-18.8, 34.5],
-      zoom: 10,
+      //center: [-18.8, 34.5],
+      center: [41.9, -87.7],
+      zoom: 12,
       layers: [
-        topographyLayer
+        satelliteLayer
       ],
       attributionControl: true,
     });
     
-    //Data Layer: Vegetation/Biomes
-    const vegetationOptions = {
-      style: (feature) => {
-        const baseStyle = {
-          color: '#000',
-          opacity: 0,
-          fillOpacity: 0.5,
-          clickable: true,
-          pointer: 'cursor',
-          weight: 0,
-        };
-        
-        const featureName = feature.properties.NAME;
-        const specificStyles = {
-          'Miombo Woodland': { color: '#063' },
-          'Mixed Savanna and Woodland': { color: '#693' },
-          'Floodplain Grassland': { color: '#3c9' },
-          'Limestone Gorges': { color: '#cc0' },
-          'Montane Woodland': { color: '#c3c' },
-          'Montane Forest': { color: '#606' },
-          'Montane Grassland': { color: '#30c' },
-          'Lake Urema': { color: '#0ff' },
-          'Inselberg': { color: '#f30' },
-        };
-        
-        return (specificStyles[featureName])
-          ? Object.assign(baseStyle, specificStyles[featureName])
-          : baseStyle;
-      },
-      
-      onEachFeature: (feature, layer) => {
-        layer.on('click', (e) => {
-          alert('Vegetation/Biome: ' + feature.properties.NAME);
-        });
-      }
-    };
-    const vegetationLayer = L.geoJson(vegetationGeoJSON, vegetationOptions);
-    vegetationLayer.addTo(myMap);
-    
-    //Data Layer: Gorongosa National Park Borders
-    const gorongosaOptions = {
-      style: {
-        color: '#fc3',
-        opacity: 1,
-        fillOpacity: 0,
-        clickable: false,
-        weight: 2
-      }
-    };
-    const gorongosaLayer = L.geoJson(gorongosaGeoJSON, gorongosaOptions);
-    gorongosaLayer.addTo(myMap);
-    
     //Data Layer: Cameras
     const cameraOptions = {
       pointToLayer: (feature, latlng) => {
-        const vegetationColours = {
-          'Limestone Gorge': '#903',
-          'Floodplain Grassland': '#06c',
-          'Miombo Woodland': '#f66',
-          'Mixed Savanna and Woodland': '#c93',
-        };
+        const radius = 5 + Math.sqrt(feature.properties.count * 2 / Math.PI);
         const marker = L.circleMarker(latlng, {
           color: '#fff',
           weight: 2,
-          fillColor: vegetationColours[feature.properties.veg_type],
+          fillColor: '#c33',
           fillOpacity: 0.8,
-          radius: 6,
+          radius: radius,
         });
         marker.on('click', (e) => {
-          alert(
-            'Marker: ' + marker.feature.properties.id + '\n' +
-            'Biome: ' + marker.feature.properties.veg_type + '\n' +
-            'Humans: ' + marker.feature.properties.human_type + ' (' + marker.feature.properties.dist_humans_m + 'm away) \n' +
-            'Water: ' + marker.feature.properties.water_type + ' (' + marker.feature.properties.dist_water_m + 'm away)'
-          );
+          alert('Site: ' + marker.feature.properties.site + '\n' +
+                'Count: ' + marker.feature.properties.count);
         });
         return marker;
       }
@@ -127,13 +66,11 @@ export default class Map extends React.Component {
     
     //Layer Controls
     const baseLayers = {
-      'Satellite': satelliteLayer,
       'Topography': topographyLayer,
+      'Satellite': satelliteLayer,
     };
     const dataLayers = {
       'Cameras': cameraLayer,
-      'Gorongosa National Park': gorongosaLayer,
-      'Vegetation/Biomes': vegetationLayer,
     };
     const layerControlsOptions = {
       position: 'topright',
@@ -167,28 +104,28 @@ export default class Map extends React.Component {
               type="checkbox" onChange={this.updateCameraLayer.bind(this)}
               ref="camera_limestone"
               checked={this.state.camera_limestone} />
-            <span>Limestone Gorge</span>
+            <span>Controls</span>
           </label>
           <label>
             <input
               type="checkbox" onChange={this.updateCameraLayer.bind(this)}
               ref="camera_floodplain"
               checked={this.state.camera_floodplain} />
-            <span>Floodplain Grassland</span>
+            <span>to</span>
           </label>
           <label>
             <input
               type="checkbox" onChange={this.updateCameraLayer.bind(this)}
               ref="camera_miombo"
               checked={this.state.camera_miombo} />
-            <span>Miombo Woodland</span>
+            <span>be</span>
           </label>
           <label>
             <input
               type="checkbox" onChange={this.updateCameraLayer.bind(this)}
               ref="camera_savanna"
               checked={this.state.camera_savanna} />
-            <span>Mixed Savanna and Woodland</span>
+            <span>added</span>
           </label>
         </div>
       </div>
@@ -203,7 +140,8 @@ export default class Map extends React.Component {
     
     //Update the camera layer.
     this.cameraLayer.clearLayers();
-    this.cameraLayer.addData(CameraDatabase.getGeoJSON(camera_limestone, camera_floodplain, camera_miombo, camera_savanna));
+    //this.cameraLayer.addData(CameraDatabase.getGeoJSON(camera_limestone, camera_floodplain, camera_miombo, camera_savanna));
+    this.cameraLayer.addData(SpeciesDatabase.getGeoJSON());
     
     //Update State and make the component re-render.
     this.setState({
