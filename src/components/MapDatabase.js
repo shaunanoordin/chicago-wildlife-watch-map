@@ -1,13 +1,17 @@
 const data = require('../data/cww-species.json');
 
 export default class MapDatabase {
-  static getGeoJSON() {
+  static getGeoJSON(speciesSelection) {
     const output = {
       type: 'FeatureCollection',
       crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
       features: data
         .filter((item) => {
-          return true;
+          if (speciesSelection && speciesSelection.length > 0) {
+            return (speciesSelection.indexOf(item.species) >= 0);
+          } else {
+            return true;
+          }
         })
         .reduce((output, item) => {
           const matchedItem = output.find((currentItem, index, array) => {
@@ -51,6 +55,18 @@ export default class MapDatabase {
           }
         })
     };
+    
+    let test = [];
+    data.map((item) => {
+      if (test.indexOf(item.species) < 0) {
+        test.push(item.species);
+      }
+    });
+    test.sort();
+    console.log('>'.repeat(40));
+    console.log(test);
+    
+    
     return output;
   }
 }

@@ -3,5 +3,8 @@
     "zoom": 11,
     "lat": 41.9,
     "lon": -87.7
+  },
+  "filters": {
+    "species": ["BRD", "BVR", "CHPMNK", "CT", "CTDMSTC", "DGDMSTC", "DR", "FXGR", "FXRD", "LVSTCK", "MNK", "MS", "MWR", "PSSM", "RBBT", "RCCN", "RT", "SKNK", "SQRRLFLNG", "SQRRLFX", "SQRRLGR", "SQRRLMLNSTCGR", "TRSQRRLBWMG", "WDCHCKKGRNDHG"]
   }
 }

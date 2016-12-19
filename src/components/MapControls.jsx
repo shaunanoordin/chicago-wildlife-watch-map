@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { addMapFilterValue, removeMapFilterValue } from '../actions/map';
+import MapConfig from '../data/cww-config.json';
 
 class MapControls extends React.Component {
   constructor() {
@@ -9,8 +10,7 @@ class MapControls extends React.Component {
   }
   
   render() {
-    const SPECIES = ['ABC', 'DEF', 'GHI'];
-    const htmlSpecies = SPECIES.map((item) => {
+    const htmlSpecies = MapConfig.filters.species.map((item) => {
       return (
         <label key={item}>
           <input

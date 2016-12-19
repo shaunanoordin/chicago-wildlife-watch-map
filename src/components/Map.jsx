@@ -104,7 +104,7 @@ class Map extends React.Component {
     
     //Update the camera layer.
     this.cameraLayer.clearLayers();
-    this.cameraLayer.addData(MapDatabase.getGeoJSON());
+    this.cameraLayer.addData(MapDatabase.getGeoJSON(props.species));
   }
 }
 
