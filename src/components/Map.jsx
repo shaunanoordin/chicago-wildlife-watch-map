@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import L from 'leaflet';
-import CameraDatabase from './camera-database.js';
-import SpeciesDatabase from './species-database.js';
+import MapDatabase from './MapDatabase.js';
+import MapConfig from '../data/cww-config.json';
+
 
 const IS_IE = 'ActiveXObject' in window;  //IE11 detection
 
@@ -32,9 +33,8 @@ export default class Map extends React.Component {
     
     //Leaflet Map
     const myMap = L.map(ReactDOM.findDOMNode(this.refs.mapVisuals), {
-      //center: [-18.8, 34.5],
-      center: [41.9, -87.7],
-      zoom: 12,
+      center: [MapConfig.centre.lat, MapConfig.centre.lon],
+      zoom: MapConfig.centre.zoom,
       layers: [
         satelliteLayer
       ],
@@ -84,8 +84,8 @@ export default class Map extends React.Component {
     recentreButton.onAdd = (map) => {
       const button = L.DomUtil.create('button', 'btn fa fa-crosshairs');
       button.onclick = () => {
-        myMap.setZoom(10);
-        myMap.panTo([-18.8, 34.5]);
+        myMap.setZoom(MapConfig.centre.zoom);
+        myMap.panTo([MapConfig.centre.lat, MapConfig.centre.lon]);
       };
       return button;
     };
@@ -141,7 +141,7 @@ export default class Map extends React.Component {
     //Update the camera layer.
     this.cameraLayer.clearLayers();
     //this.cameraLayer.addData(CameraDatabase.getGeoJSON(camera_limestone, camera_floodplain, camera_miombo, camera_savanna));
-    this.cameraLayer.addData(SpeciesDatabase.getGeoJSON());
+    this.cameraLayer.addData(MapDatabase.getGeoJSON());
     
     //Update State and make the component re-render.
     this.setState({

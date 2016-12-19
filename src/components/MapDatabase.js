@@ -1,6 +1,6 @@
 const data = require('../data/cww-species.json');
 
-export default class SpeciesDatabase {
+export default class MapDatabase {
   static getGeoJSON() {
     const output = {
       type: 'FeatureCollection',
@@ -32,6 +32,11 @@ export default class SpeciesDatabase {
           
           return output;
         }, [])
+        .sort((a, b) => {
+          if (a.count > b.count) return -1;
+          if (a.count < b.count) return 1;
+          return 0;
+        })
         .map((item) => {
           return {
             type: 'Feature',
