@@ -5,6 +5,7 @@ import L from 'leaflet';
 import MapDatabase from './MapDatabase.js';
 import MapControls from './MapControls';
 import MapConfig from '../data/cww-config.json';
+import { updateMapSummary } from '../actions/map';
 
 const IS_IE = 'ActiveXObject' in window;  //IE11 detection
 
@@ -108,11 +109,23 @@ class Map extends React.Component {
   }
   
   updateCameraLayer(props = this.props) {
-    console.log('--->', props.species);
-    
     //Update the camera layer.
+    const geojsonData = MapDatabase.getGeoJSON(props.species);
     this.cameraLayer.clearLayers();
-    this.cameraLayer.addData(MapDatabase.getGeoJSON(props.species));
+    this.cameraLayer.addData(geojsonData);
+    
+    //Update the map summary.
+    let summaryCount = geojsonData.features.reduce((output, item) => {
+      return output + item.properties.count
+    }, 0);
+    let summarySpecies = '';
+    for (let species of props.species) {
+      if (summarySpecies !== '') { summarySpecies += ', '; }
+      summarySpecies += species;
+    }
+    if (summarySpecies === '') { summarySpecies = 'all species'; }    
+    const summary = `Viewing ${summaryCount} results for ${summarySpecies}`;
+    this.props.dispatch(updateMapSummary(summary));
   }
 }
 

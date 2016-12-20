@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { addMapFilterValue, removeMapFilterValue } from '../actions/map';
 import MapConfig from '../data/cww-config.json';
+import MapSummary from './MapSummary';
 
 class MapControls extends React.Component {
   constructor() {
@@ -30,9 +31,7 @@ class MapControls extends React.Component {
         
     return (
       <div ref="mapControls" className="map-controls">
-        <div className="map-controls-summary">
-          ...
-        </div>
+        <MapSummary />
         <div className="map-controls-section">
           {htmlSpecies}
         </div>

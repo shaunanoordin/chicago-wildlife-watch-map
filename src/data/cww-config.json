@@ -8,21 +8,20 @@
     "species": [
       { "id": "BVR", "label": "Beaver" },
       { "id": "BRD", "label": "Bird" },
-      { "id": "CT", "label": "Cat" },
       { "id": "CTDMSTC", "label": "Cat, Domestic" },
       { "id": "CHPMNK", "label": "Chipmunk" },
-      { "id": "???C", "label": "Coyote" },
+      { "id": "CT", "label": "Coyote" },
       { "id": "DR", "label": "Deer" },
       { "id": "DGDMSTC", "label": "Dog, Domestic" },
       { "id": "FXGR", "label": "Fox, Gray" },
       { "id": "FXRD", "label": "Fox, Red" },
-      { "id": "???HO", "label": "Horse" },
-      { "id": "???HU", "label": "Human" },
+      { "id": "HRS", "label": "Horse" },
+      { "id": "HMN", "label": "Human" },
       { "id": "LVSTCK", "label": "Livestock" },
       { "id": "MNK", "label": "Mink" },
       { "id": "MS", "label": "Mouse" },
       { "id": "MWR", "label": "Mower" },
-      { "id": "???MU", "label": "Muskrat" },
+      { "id": "MSKRT", "label": "Muskrat" },
       { "id": "PSSM", "label": "Opossum" },
       { "id": "RBBT", "label": "Rabbit" },
       { "id": "RCCN", "label": "Raccoon" },
@@ -33,8 +32,9 @@
       { "id": "SQRRLGR", "label": "Squirrel, Gray" },
       { "id": "SQRRLMLNSTCGR", "label": "Squirrel, Melanistic Gray" },
       { "id": "TRSQRRLBWMG", "label": "Tree Squirrel (BW image)" },
-      { "id": "???WE", "label": "Weasel" },
-      { "id": "WDCHCKKGRNDHG", "label": "Woodchuck (aka Groundhog)" }
+      { "id": "WSL", "label": "Weasel" },
+      { "id": "WDCHCKKGRNDHG", "label": "Woodchuck (aka Groundhog)" },
+      { "id": "NTHNGHR", "label": "Nothing here" }
     ]
   }
 }
