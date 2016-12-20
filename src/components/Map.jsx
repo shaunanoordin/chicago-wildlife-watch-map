@@ -56,8 +56,16 @@ class Map extends React.Component {
           radius: radius,
         });
         marker.on('click', (e) => {
+          console.log(marker.feature.properties);
+          let summary = '';
+          for (let prop in marker.feature.properties.summary) {
+            summary += prop + ' x' + marker.feature.properties.summary[prop] + '\n';
+          }
+          
           alert('Site: ' + marker.feature.properties.site + '\n' +
-                'Count: ' + marker.feature.properties.count);
+                'Count: ' + marker.feature.properties.count + '\n' +
+                '--------\n' +
+                summary);
         });
         return marker;
       }

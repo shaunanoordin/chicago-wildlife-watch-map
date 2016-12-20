@@ -11,23 +11,31 @@ class MapControls extends React.Component {
   
   render() {
     const htmlSpecies = MapConfig.filters.species.map((item) => {
+      const id = item.id;
+      const label = item.label;
+      const selected = (this.props.species.indexOf(id) >= 0);
+      
       return (
-        <label key={item}>
+        <label key={id} className={(selected) ? 'selected' : ''}>
           <input
             type="checkbox"
-            data-value={item}
+            data-value={id}
             onChange={this.selectionChanged.bind(this)}
-            checked={this.props.species.indexOf(item) >= 0}
+            checked={selected}
           />
-          <span>{item}</span>
+          <span>{label}</span>
         </label>
       );
     });
-    
-    
+        
     return (
       <div ref="mapControls" className="map-controls">
-        {htmlSpecies}
+        <div className="map-controls-summary">
+          ...
+        </div>
+        <div className="map-controls-section">
+          {htmlSpecies}
+        </div>
       </div>
     );
   }

@@ -5,6 +5,36 @@
     "lon": -87.7
   },
   "filters": {
-    "species": ["BRD", "BVR", "CHPMNK", "CT", "CTDMSTC", "DGDMSTC", "DR", "FXGR", "FXRD", "LVSTCK", "MNK", "MS", "MWR", "PSSM", "RBBT", "RCCN", "RT", "SKNK", "SQRRLFLNG", "SQRRLFX", "SQRRLGR", "SQRRLMLNSTCGR", "TRSQRRLBWMG", "WDCHCKKGRNDHG"]
+    "species": [
+      { "id": "BVR", "label": "Beaver" },
+      { "id": "BRD", "label": "Bird" },
+      { "id": "CT", "label": "Cat" },
+      { "id": "CTDMSTC", "label": "Cat, Domestic" },
+      { "id": "CHPMNK", "label": "Chipmunk" },
+      { "id": "???C", "label": "Coyote" },
+      { "id": "DR", "label": "Deer" },
+      { "id": "DGDMSTC", "label": "Dog, Domestic" },
+      { "id": "FXGR", "label": "Fox, Gray" },
+      { "id": "FXRD", "label": "Fox, Red" },
+      { "id": "???HO", "label": "Horse" },
+      { "id": "???HU", "label": "Human" },
+      { "id": "LVSTCK", "label": "Livestock" },
+      { "id": "MNK", "label": "Mink" },
+      { "id": "MS", "label": "Mouse" },
+      { "id": "MWR", "label": "Mower" },
+      { "id": "???MU", "label": "Muskrat" },
+      { "id": "PSSM", "label": "Opossum" },
+      { "id": "RBBT", "label": "Rabbit" },
+      { "id": "RCCN", "label": "Raccoon" },
+      { "id": "RT", "label": "Rat" },
+      { "id": "SKNK", "label": "Skunk" },
+      { "id": "SQRRLFLNG", "label": "Squirrel, Flying" },
+      { "id": "SQRRLFX", "label": "Squirrel, Fox" },
+      { "id": "SQRRLGR", "label": "Squirrel, Gray" },
+      { "id": "SQRRLMLNSTCGR", "label": "Squirrel, Melanistic Gray" },
+      { "id": "TRSQRRLBWMG", "label": "Tree Squirrel (BW image)" },
+      { "id": "???WE", "label": "Weasel" },
+      { "id": "WDCHCKKGRNDHG", "label": "Woodchuck (aka Groundhog)" }
+    ]
   }
 }

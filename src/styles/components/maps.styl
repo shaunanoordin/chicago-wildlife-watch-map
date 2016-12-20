@@ -17,22 +17,35 @@
     background: $primary-colour
     color: $secondary-colour
     padding: 1em
-    display: flex
-    flex-direction: row
-    flex-wrap: wrap
-    justify-content: center
-    max-height: 20vh
-    overflow: auto
     
-    label
-      cursor: pointer
-      flex: 0 0 auto
-      padding: 0.25em
-      margin: 0.25em
-      border-radius: 0.5em
-      border: 1px solid $secondary-colour
-      width: 100%;
-      max-width: 12em;
+    .map-controls-summary
+      text-align: center
+    
+    .map-controls-section
+      display: flex
+      flex-direction: row
+      flex-wrap: wrap
+      justify-content: center
+      max-height: 15vh
+      overflow: auto
+    
+      label
+        cursor: pointer
+        flex: 0 0 auto
+        padding: 0.25em
+        margin: 0.25em
+        border-radius: 0.5em
+        border: 1px solid $secondary-colour
+        width: 100%;
+        max-width: 12em
+        text-align: center
+        
+        &.selected
+          background: $secondary-colour
+          color: $primary-colour
+        
+        input[type=checkbox]
+          display: none
 
 .fix-map-height
   > div
