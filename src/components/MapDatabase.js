@@ -1,4 +1,5 @@
 const data = require('../data/cww-species.json');
+import { updateMapSummary } from '../actions/map';
 
 export default class MapDatabase {
   static getGeoJSON(speciesSelection) {
@@ -14,23 +15,34 @@ export default class MapDatabase {
           }
         })
         .reduce((output, item) => {
-          const matchedItem = output.find((currentItem, index, array) => {
+          let matchedItem = output.find((currentItem, index, array) => {
             return currentItem.site === item.site;
           });
           
-          if (matchedItem) {
-            matchedItem.count++;
-          } else {
+          //If the item doesn't exist, create it
+          if (!matchedItem) {
             const coords = convertUTMtoLatLon(item.northing, item.easting);
-            const lat = (coords.lat && !isNaN(coords.lat)) ? coords.lat : 0;
-            const lon = (coords.lon && !isNaN(coords.lon)) ? coords.lon : 0;
-            if (lat !== 0 && lon !== 0) {
-              output.push({
+            const lat = (coords.lat && !isNaN(coords.lat)) ? coords.lat : undefined;
+            const lon = (coords.lon && !isNaN(coords.lon)) ? coords.lon : undefined;
+            if (lat && lon) {  //Filter out invalid coordinates
+              matchedItem = {
                 site: item.site,
                 lon: lon,
                 lat: lat,
-                count: 1,
-              });
+                count: 0,
+                summary: {},
+              };
+              output.push(matchedItem);
+            }
+          }
+          
+          //Update the matched item.
+          if (matchedItem) {
+            matchedItem.count++;
+            if (matchedItem.summary[item.species]) {  //The summary is used to generate a per-camera report of what's been seen there.
+              matchedItem.summary[item.species]++;
+            } else {
+              matchedItem.summary[item.species] = 1;
             }
           }
           
@@ -51,21 +63,11 @@ export default class MapDatabase {
             properties: {
               site: item.site,
               count: item.count,
+              summary: item.summary,
             }
           }
         })
     };
-    
-    let test = [];
-    data.map((item) => {
-      if (test.indexOf(item.species) < 0) {
-        test.push(item.species);
-      }
-    });
-    test.sort();
-    console.log('>'.repeat(40));
-    console.log(test);
-    
     
     return output;
   }

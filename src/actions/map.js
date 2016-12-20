@@ -15,3 +15,12 @@ export function removeMapFilterValue(key, val) {
     });
   };
 }
+
+export function updateMapSummary(val) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_MAP_SUMMARY',
+      val
+    });
+  };
+}

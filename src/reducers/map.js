@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes';
 export const initialState = {
   species: [],
+  summary: '...',
 };
 
 export function map(state = initialState, action) {
@@ -28,6 +29,10 @@ export function map(state = initialState, action) {
         removedData[action.key] = '';
       }
       return Object.assign({}, state, removedData);
+      
+    case 'UPDATE_MAP_SUMMARY':
+      const updatedData = { summary: action.val };
+      return Object.assign({}, state, updatedData);
     
     default:
       return state;
