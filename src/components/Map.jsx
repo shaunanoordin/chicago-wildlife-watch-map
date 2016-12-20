@@ -57,10 +57,12 @@ class Map extends React.Component {
           radius: radius,
         });
         marker.on('click', (e) => {
-          console.log(marker.feature.properties);
           let summary = '';
           for (let prop in marker.feature.properties.summary) {
-            summary += prop + ' x' + marker.feature.properties.summary[prop] + '\n';
+            const label = MapConfig.filters.species.reduce((output, species) => {
+              return (species.id === prop) ? species.label : output;
+            }, '???');
+            summary += label + ' x' + marker.feature.properties.summary[prop] + '\n';
           }
           
           alert('Site: ' + marker.feature.properties.site + '\n' +
@@ -120,8 +122,11 @@ class Map extends React.Component {
     }, 0);
     let summarySpecies = '';
     for (let species of props.species) {
-      if (summarySpecies !== '') { summarySpecies += ', '; }
-      summarySpecies += species;
+      if (summarySpecies !== '') { summarySpecies += '; '; }
+      const label = MapConfig.filters.species.reduce((output, item) => {
+        return (item.id === species) ? item.label : output;
+      }, '???');
+      summarySpecies += label;
     }
     if (summarySpecies === '') { summarySpecies = 'all species'; }    
     const summary = `Viewing ${summaryCount} results for ${summarySpecies}`;

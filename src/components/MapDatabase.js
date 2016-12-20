@@ -1,5 +1,4 @@
 const data = require('../data/cww-species.json');
-import { updateMapSummary } from '../actions/map';
 
 export default class MapDatabase {
   static getGeoJSON(speciesSelection) {
