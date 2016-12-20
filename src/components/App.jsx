@@ -10,13 +10,16 @@ export default class App extends React.Component {
   render() {
 
     return (
-      <div>
-        <header className="site-header">
+      <div id="app">
+        <header className="app-header">
           <h1 className="title">Chicago Wildlife Watch Map Explorer</h1>
         </header>
         <section className="content-section">
           <Map />
         </section>
+        <footer  className="app-footer">
+          Part of the <a href="https://www.zooniverse.org/projects/zooniverse/chicago-wildlife-watch">Chicago Wildlife Watch</a> and powered by the <a href="https://zooniverse.org">Zooniverse.</a>
+        </footer>
       </div>
     );
   }

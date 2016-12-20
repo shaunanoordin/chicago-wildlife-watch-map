@@ -14,10 +14,10 @@
     flex: 0 0 auto
     margin: 0 auto
     width: 100%
-    background: $primary-colour
-    color: $secondary-colour
     
     .map-controls-summary
+      background: $primary-colour
+      color: $secondary-colour
       text-align: center
       padding: 1em
     
@@ -35,14 +35,16 @@
         padding: 0.25em
         margin: 0.25em
         border-radius: 0.5em
-        border: 1px solid $secondary-colour
+        border: 1px solid $primary-colour
+        color: $tertiary-colour
+        background: $secondary-colour
         width: 100%;
         max-width: 12em
         text-align: center
         
         &.selected
-          background: $secondary-colour
-          color: $primary-colour
+          color: $secondary-colour
+          background: $primary-colour
         
         input[type=checkbox]
           display: none
